@@ -4,6 +4,8 @@
  * For details, see http://www.apache.org/licenses/LICENSE-2.0.
  */
 
+
+
 html,
 body {
     width: 100%;
@@ -94,9 +96,10 @@ aside {
 
 .navbar-default .navbar-header .navbar-brand {
     text-transform: uppercase;
-    font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
-    font-weight: 700;
-    color: #f05f40;
+    font-family: 'Playfair Display SC', serif;
+    font-weight: 900;
+    font-size: 16;
+    color: #FFFFFF;
 }
 
 .navbar-default .navbar-header .navbar-brand:hover,
