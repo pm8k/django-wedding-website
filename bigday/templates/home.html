@@ -45,7 +45,7 @@
     <header id="main-header">
         <div class="header-content">
             <div class="header-content-inner">
-                <h1>Our Wedding Site!</h1>
+                <h1>Megan & Matthew<br>Get Married!</h1>
                 {% comment %}
                 <hr>
                 <h2>It's wedding week!</h2>
@@ -87,11 +87,11 @@
             <div class="row no-gutter">
                 <div class="col-lg-4 col-sm-6">
                     <a href="#event" class="portfolio-box page-scroll">
-                        <img src="{% static 'bigday/images/kansas_city.jpg' %}" class="img-responsive" alt="">
+                        <img src="{% static 'bigday/images/country-club-church.jpg' %}" class="img-responsive" alt="">
                         <div class="portfolio-box-caption">
                             <div class="portfolio-box-caption-content">
                                 <div class="project-name">
-                                    The Event
+                                    The Big Day
                                 </div>
                             </div>
                         </div>
@@ -99,11 +99,11 @@
                 </div>
                 <div class="col-lg-4 col-sm-6">
                     <a href="#location" class="portfolio-box page-scroll">
-                        <img src="{% static 'bigday/images/country-club-church.jpg' %}" class="img-responsive" alt="">
+                        <img src="{% static 'bigday/images/kansas_city2.jpeg' %}" class="img-responsive" alt="">
                         <div class="portfolio-box-caption">
                             <div class="portfolio-box-caption-content">
                                 <div class="project-name">
-                                    Location
+                                    About Kansas City
                                 </div>
                             </div>
                         </div>
@@ -111,7 +111,7 @@
                 </div>
                 <div class="col-lg-4 col-sm-6">
                     <a href="#story" class="portfolio-box page-scroll">
-                        <img src="{% static 'bigday/images/derek_wedding.jpg' %}" class="img-responsive" alt="">
+                        <img src="{% static 'bigday/images/mandmbw.jpg' %}" class="img-responsive" alt="">
                         <div class="portfolio-box-caption">
                             <div class="portfolio-box-caption-content">
                                 <div class="project-name">
@@ -126,7 +126,11 @@
     </section>
     {% include 'partials/event.html' %}
     <section id="location">
+      {% comment %}
+
         {% include 'partials/location.html' %}
+      {% endcomment %}
+
     </section>
 {% comment %}
         {% include 'partials/wedding-party.html' %}
@@ -135,12 +139,20 @@
         {% include 'partials/misc.html' %}
     </section> -->
     <section id="gifts">
+      {% comment %}
+
         {% include 'partials/gifts.html' %}
+
+      {% endcomment %}
+
     </section>
     <section id="story" class="bg-dark">
         {% include 'partials/story.html' %}
     </section>
+{% comment %}
     {% include 'partials/proposal.html' %}
+{% endcomment %}
+
     <!-- {% include 'partials/save-the-dates.html' %} -->
     <section id="contact" class="bg-dark">
         <div class="container">
