@@ -24,13 +24,19 @@
                         <a class="page-scroll" href="#main-header">Home</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#event">Event</a>
+                        <a class="page-scroll" href="#event">The Big Day</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#location">Wedding Location</a>
+                        <a class="page-scroll" href="#location">Where</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#other-stuff">Everything Else</a>
+                        <a class="page-scroll" href="#gifts">Registry</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#story">Our Story</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#wedding-party">Wedding Party</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="#contact">Contact</a>
@@ -44,11 +50,19 @@
     {% block main %}
     <header id="main-header">
         <div class="header-content">
-            <div class="header-content-inner">
-                <h1>Megan & Matthew<br>Get Married!</h1>
-                {% comment %}
+            <div class="header-content-inner-1">
+                <h1>Megan & Matthew</h1>
+
+            </div>
+            <div class="header-content-inner-2">
+                <h1>GET MARRIED!</h1>
                 <hr>
-                <h2>It's wedding week!</h2>
+            </div>
+            <div class="header-content-inner-3">
+                <h1>June 9, 2018</h1>
+            </div>
+            <div class="header-content-inner-4">
+                {% comment %}
                 <a href="#welcome" class="btn btn-info btn-xl page-scroll">Welcome</a>
                 <a href="#event" class="btn btn-primary btn-xl page-scroll">Friday</a>
                 <a href="#saturday-event" class="btn btn-success btn-xl page-scroll">Saturday</a>
@@ -56,13 +70,13 @@
             </div>
         </div>
     </header>
-    <section class="bg-info" id="welcome">
+    <section class="bg-info bg-info-plus" id="welcome">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <h2 class="section-heading">Welcome!</h2>
-                    <hr>
-                    <p>
+                    <h2 class="section-heading marmerheader">Welcome!</h2>
+                    <hr class="marmerhr">
+                    <p class="marmerbodytext">
                         Hello friends and family! Our website is under construction, but feel to check back later!
                     </p>
                     <!-- <p>
@@ -77,7 +91,7 @@
                     <p>
                         Looking forward to seeing everyone soon!
                     </p> -->
-                    <p class="pull-right">- Megan and Matt</p>
+                    <p class="pull-right marmerbodytext">- Megan and Matt</p>
                 </div>
             </div>
         </div>
@@ -126,11 +140,9 @@
     </section>
     {% include 'partials/event.html' %}
     <section id="location">
-      {% comment %}
-
+{% comment %}
         {% include 'partials/location.html' %}
-      {% endcomment %}
-
+{% endcomment %}
     </section>
 {% comment %}
         {% include 'partials/wedding-party.html' %}
@@ -139,34 +151,34 @@
         {% include 'partials/misc.html' %}
     </section> -->
     <section id="gifts">
-      {% comment %}
-
+{% comment %}
         {% include 'partials/gifts.html' %}
-
-      {% endcomment %}
+{% endcomment %}
 
     </section>
     <section id="story" class="bg-dark">
         {% include 'partials/story.html' %}
     </section>
-{% comment %}
     {% include 'partials/proposal.html' %}
-{% endcomment %}
 
     <!-- {% include 'partials/save-the-dates.html' %} -->
-    <section id="contact" class="bg-dark">
+    <section id="contact" class="bg-dark marmerbgblue">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <h2 class="section-heading">Contact us!</h2>
-                    <hr class="primary">
-                    <p>If you have any questions don't hesitate to reach out!</p>
+                    <h2 class="section-heading marmerheader">Contact us!</h2>
+                    <hr class="marmerhr">
+                    <p marmerbodytext>If you have any questions don't hesitate to reach out!</p>
                 </div>
                 <div class="col-lg-8 col-lg-offset-2 text-center">
                     <i class="fa fa-envelope-o fa-3x wow bounceIn" data-wow-delay=".1s"></i>
-                    <p><a href="mailto:marmerwedding@gmail.com">marmerwedding@gmail.com</a></p>
+                    <p style="font-style:italic"><a href="mailto:marmerwedding@gmail.com">marmerwedding@gmail.com</a></p>
                 </div>
             </div>
+        </div>
+        <div id="footer" class="text-center text-muted invisible marmerbodytext" style="color:#FFFFFF;max-width:None;text-align:center">
+          Designed and built by Matthew and Megan.
+          Source code found <a href="https://github.com/pm8k/django-wedding-website">here</a>. Based on website by Github user <a href="https://github.com/czue/django-wedding-website">czue</a>.
         </div>
     </section>
     {% endblock %}
