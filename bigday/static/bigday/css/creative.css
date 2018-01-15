@@ -113,7 +113,7 @@ p {
   font-size: 16px;
   line-height: 26px;
   max-width: 600px;
-  text-align: left;
+  text-align: justify;
   margin:0 auto;
 }
 
@@ -127,7 +127,7 @@ p {
   font-size: 16px;
   line-height: 26px;
   max-width: 350px;
-  text-align: center;
+  text-align: justify;
   margin:0 auto;
 }
 
@@ -136,6 +136,23 @@ p {
   font-weight: 400;
   font-size: 13px ;
   line-height: 20px;
+  max-width: 250px;
+  text-align: justify;
+}
+
+.testwidth {
+  max-width: 95%;
+
+}
+
+.bestpeople {
+  max-width: 80%;
+  align-content: center;
+}
+
+.center {
+  align-content: center;
+  justify-content: center; align-items: center
 }
 
 .marmerhr {
@@ -569,6 +586,16 @@ width:33.33%;
 float:left;
 overflow:hidden;
 padding:0
+}
+
+.img-responsive-best{
+height:auto;
+width:100%;
+max-width:300px;
+margin: 0px auto !important;
+float: none !important;
+
+/*max-height:200px;*/
 }
 
 
