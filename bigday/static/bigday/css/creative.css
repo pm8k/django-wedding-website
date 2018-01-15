@@ -276,8 +276,10 @@ aside {
 
 header {
     position: relative;
-    width: 100%;
-    min-height: auto;
+    /*width: 100%;
+    min-height: auto;*/
+    width: auto;
+    height: 100%;
     text-align: center;
     color: rgb(28,56,81);
     background-position: center;
@@ -288,7 +290,7 @@ header {
 }
 
 #main-header {
-    background-image: url('../images/marmer_pokeball.jpg');
+    background-image: url('../images/header-image.jpg');
 }
 
 header .header-content {
@@ -358,8 +360,46 @@ header .header-content .header-content-inner-1 p {
 }
 
 #second-header {
-    background-image: url('../images/3ds-names-bw.jpg');
+    background-image: url('../images/our-story-pokemon.jpg');
 }
+
+/*#third-header {
+    background:url('../images/the-proposal-left.jpg') no-repeat 100% 0 , url('../images/the-proposal-right.jpg') no-repeat 0 0;
+}*/
+
+.splitbackground{
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: -1;
+}
+
+.backgroundleft{
+    background: url('../images/the-proposal-left.jpg') no-repeat left;
+}
+
+.backgroundright{
+    background: url('../images/the-proposal-right.jpg') no-repeat right;
+}
+
+
+@media only screen and (min-width: 481px) {
+//here happens something when the screen size is >= 481px
+ div#backleft {
+   background-image: url(oneBackground);
+ }
+}
+
+@media only screen and (max-width: 481px) {
+//here happens something when the screen size is <= 481px
+ div#backright {
+   background-image: none;
+ }
+}
+
+
 
 @media(min-width:768px) {
     header {
@@ -367,9 +407,17 @@ header .header-content .header-content-inner-1 p {
     }
 
     header.secondary {
-        min-height: 30%;
+        min-height: 200px;
+        width: auto;
+        height: 100%;
+        max-height: 600px;
     }
 
+    header.third {
+      width: auto;
+      height: 100%;
+        min-height: 100px;
+    }
     header .header-content {
         position: absolute;
         top: 15%;
@@ -428,7 +476,16 @@ header .header-content .header-content-inner-1 p {
     display: block;
     position: relative;
     margin: 0 auto;
-    max-width: 650px;
+    max-width: 920px;
+    height: 100%;
+}
+
+.box-test{
+  max-height: none !important;
+}
+
+.img-2 {
+  height: 100% !important;
 }
 
 .portfolio-box .portfolio-box-caption {
@@ -496,6 +553,24 @@ header .header-content .header-content-inner-1 p {
     padding-right: 0;
     padding-left: 0;
 }
+
+/*html, body {
+    height: 100%;
+    overflow: hidden;
+}*/
+.img-responsive{
+height:auto;
+width:100%;
+max-width:none;
+max-height:none;
+}
+.col-lg-4.col-sm-6 {
+width:33.33%;
+float:left;
+overflow:hidden;
+padding:0
+}
+
 
 .btn-default {
     border-color: #fff;

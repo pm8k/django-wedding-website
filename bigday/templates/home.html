@@ -96,12 +96,12 @@
             </div>
         </div>
     </section>
-    <section class="no-padding" id="navigation">
-        <div class="container-fluid">
+    <section class="no-padding box-test" id="navigation">
+        <div class="container-fluid box-test">
             <div class="row no-gutter">
                 <div class="col-lg-4 col-sm-6">
                     <a href="#event" class="portfolio-box page-scroll">
-                        <img src="{% static 'bigday/images/country-club-church.jpg' %}" class="img-responsive" alt="">
+                        <img src="{% static 'bigday/images/big-day.jpg' %}" class="img-responsive img-2" alt="">
                         <div class="portfolio-box-caption">
                             <div class="portfolio-box-caption-content">
                                 <div class="project-name">
@@ -113,7 +113,7 @@
                 </div>
                 <div class="col-lg-4 col-sm-6">
                     <a href="#location" class="portfolio-box page-scroll">
-                        <img src="{% static 'bigday/images/kansas_city2.jpeg' %}" class="img-responsive" alt="">
+                        <img src="{% static 'bigday/images/welcome-to-kc.jpg' %}" class="img-responsive" alt="">
                         <div class="portfolio-box-caption">
                             <div class="portfolio-box-caption-content">
                                 <div class="project-name">
@@ -125,7 +125,7 @@
                 </div>
                 <div class="col-lg-4 col-sm-6">
                     <a href="#story" class="portfolio-box page-scroll">
-                        <img src="{% static 'bigday/images/mandmbw.jpg' %}" class="img-responsive" alt="">
+                        <img src="{% static 'bigday/images/our-story.jpg' %}" class="img-responsive" alt="">
                         <div class="portfolio-box-caption">
                             <div class="portfolio-box-caption-content">
                                 <div class="project-name">
@@ -138,27 +138,50 @@
             </div>
         </div>
     </section>
+
     {% include 'partials/event.html' %}
-    <section id="location">
+
 {% comment %}
+    <section id="location">
         {% include 'partials/location.html' %}
-{% endcomment %}
     </section>
+{% endcomment %}
+
 {% comment %}
         {% include 'partials/wedding-party.html' %}
 {% endcomment %}
     <!-- <section id="other-stuff" class="bg-primary">
         {% include 'partials/misc.html' %}
     </section> -->
-    <section id="gifts">
 {% comment %}
+  <section id="gifts">
         {% include 'partials/gifts.html' %}
+    </section>
 {% endcomment %}
 
-    </section>
-    <section id="story" class="bg-dark">
+<header id="second-header" class="secondary"></header>
+
+    <section id="story" class="no-padding bg-dark">
         {% include 'partials/story.html' %}
     </section>
+
+    <section class="no-padding">
+          <div class="container-fluid box-test">
+              <div class="row no-gutter">
+                  <div class="col-lg-6 col-sm-6">
+                    <div class="img-responsive" id="background1">
+                      <img src="{% static 'bigday/images/the-proposal-left.jpg' %}" class="img-responsive img-2" alt="">
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-sm-6">
+                    <div class="img-responsive" id="background2">
+                      <img src="{% static 'bigday/images/the-proposal-right.jpg' %}" class="img-responsive img-2" alt="">
+                      </div>
+                  </div>
+              </div>
+          </div>
+  </section>
+
     {% include 'partials/proposal.html' %}
 
     <!-- {% include 'partials/save-the-dates.html' %} -->
