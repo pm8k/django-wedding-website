@@ -76,8 +76,17 @@
                 <div class="col-lg-8 col-lg-offset-2 text-center">
                     <h2 class="section-heading marmerheader">Welcome!</h2>
                     <hr class="marmerhr">
-                    <p class="marmerbodytext">
-                        Hello friends and family! Our website is under construction, but feel to check back later!
+                    <p class="marmerbodytext marmercenter">
+                      Hello friends and family! We have less than 100 days left to go!
+                      <br><br>
+                      Updates 3/9: We have updated our website to include information on travel, hotel, registries, and our wonderful city of Kansas City. Please see below for all of the details regarding our
+                      <a href="#event" class="page-scroll">event</a>,
+                      <a href="#location" class="page-scroll"> where to stay</a>,
+                      and <a href="#location" class="page-scroll">what to do</a> when you’re not celebrating with us!
+                      <br><br>
+                      Megan will be posting updates on Facebook as we get closer to the event, so feel free to add me! Also, we have decided our wedding hashtags are #Russellmania2018 #OneRuthLessWedding and #marmerwedding if you’re into that sort of thing.
+                      <br><br>
+                      We are so excited to see everyone!!
                     </p>
                     <!-- <p>
                         If you're looking for information about the event, look no further!
@@ -139,23 +148,12 @@
         </div>
     </section>
 
-    {% include 'partials/event.html' %}
+{% include 'partials/event.html' %}
 
-{% comment %}
-    <section id="location">
-        {% include 'partials/location.html' %}
-    </section>
-{% endcomment %}
+{% include 'partials/location.html' %}
 
+{% include 'partials/gifts.html' %}
 
-    <!-- <section id="other-stuff" class="bg-primary">
-        {% include 'partials/misc.html' %}
-    </section> -->
-{% comment %}
-  <section id="gifts">
-        {% include 'partials/gifts.html' %}
-    </section>
-{% endcomment %}
 
 <header id="second-header" class="secondary"></header>
 
