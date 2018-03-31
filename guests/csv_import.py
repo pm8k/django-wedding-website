@@ -12,32 +12,26 @@ def import_guests(path):
             if first_row:
                 first_row = False
                 continue
-            party_name, first_name, last_name, party_type, is_child, category, is_invited, email = row[:8]
+            #party_name, first_name, last_name, party_type, is_child, category, is_invited, email = row[:8]
+            party,first_name,last_name,plus_one,is_child,category,rehearsal_dinner = row[:7]
+
             if not party_name:
                 print 'skipping row {}'.format(row)
                 continue
             party = Party.objects.get_or_create(name=party_name)[0]
-            party.type = party_type
             party.category = category
-            party.is_invited = _is_true(is_invited)
-            if not party.invitation_id:
-                party.invitation_id = uuid.uuid4().hex
+            party.invitation_id = party
             party.save()
-            if email:
-                guest, created = Guest.objects.get_or_create(party=party, email=email)
-                guest.first_name = first_name
-                guest.last_name = last_name
-            else:
-                guest = Guest.objects.get_or_create(party=party, first_name=first_name, last_name=last_name)[0]
-            guest.is_child = _is_true(is_child)
+
+            guest = Guest.objects.get_or_create(party=party, first_name=first_name, last_name=last_name)[0]
+            guest.is_child = is_child
             guest.save()
 
 
 def export_guests():
     headers = [
-        'party_name', 'first_name', 'last_name', 'party_type',
-        'is_child', 'category', 'is_invited', 'is_attending',
-        'rehearsal_dinner', 'meal', 'email', 'comments'
+        'party','first_name','last_name','plus_one','is_child',
+        'category','is_attending','rehearsal_dinner','comments'
     ]
     file = StringIO.StringIO()
     writer = csv.writer(file)
@@ -49,14 +43,12 @@ def export_guests():
                     party.name,
                     guest.first_name,
                     guest.last_name,
-                    party.type,
+                    party.plus_one,
                     guest.is_child,
                     party.category,
-                    party.is_invited,
+                    party.rehearsal_dinner,
                     guest.is_attending,
                     party.rehearsal_dinner,
-                    guest.meal,
-                    guest.email,
                     party.comments,
                 ])
     return file

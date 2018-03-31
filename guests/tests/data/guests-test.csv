@@ -1,6 +1,17 @@
-Party,First Name,Last Name,Type,Is Child?,Category,Invite Now?,Email
-The Starks,Ned,Stark,formal,,starks,y,ned@winterfell.gov
-The Starks,Catelyn,Stark,formal,,starks,y,cat@winterfell.gov
-The Starks,Arya,Stark,formal,y,starks,y,needle@winterfell.gov
-Tyrion,Tyrion,Lannister,fun,n,lannisters,y,
-Jaime,Jaime,Lannister,fun,n,lannisters,n,
+party,first_name,last_name,plus_one,is_child,category,rehearsal_dinner
+test1,testf,testl,False,False,test,False
+test1,testf2,tesl2,False,False,test,False
+test2,testpof,testpol,True,False,test,Fasle
+test3,testrdlf,testrdl,False,False,test,True
+test3,testrdlf2,testrdl2,False,False,test,True
+test4,testicf,testicf,False,False,test,False
+test4,testicf2,testicf2,False,False,test,False
+test4,testicf3,testicf3,False,True,test,False
+test4,testicf4,testicf4,False,True,test,False
+test4,testicf5,testicf5,False,True,test,False
+test5,testicf,testicf,False,False,test,True
+test5,testicf2,testicf2,False,False,test,True
+test5,testicf3,testicf3,False,True,test,True
+test5,testicf4,testicf4,False,True,test,True
+test5,testicf5,testicf5,False,True,test,True
+test6,testpof,testpol,True,False,test,True
