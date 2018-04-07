@@ -34,6 +34,7 @@ class Party(models.Model):
     is_attending = models.NullBooleanField(default=None)
     comments = models.TextField(null=True, blank=True)
     plus_one = models.BooleanField(default=False)
+    plus_one_is_attending = models.NullBooleanField(default=None)
 
     def __unicode__(self):
         return 'Party: {}'.format(self.name)
@@ -72,7 +73,7 @@ class Guest(models.Model):
     last_name = models.TextField(null=True, blank=True)
     # email = models.TextField(null=True, blank=True)
     is_attending = models.NullBooleanField(default=None)
-    # meal = models.CharField(max_length=20, choices=MEALS, null=True, blank=True)
+    meal = models.CharField(max_length=20, choices=MEALS, null=True, blank=True)
     is_child = models.BooleanField(default=False)
 
     @property

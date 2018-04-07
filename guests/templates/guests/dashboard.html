@@ -19,6 +19,10 @@
                 <td>Not Coming</td>
                 <td>{{ not_coming_guests }}</td>
             </tr>
+            <tr>
+                <td>Plus Ones / Possible Plus Ones</td>
+                <td>{{ plus_ones_attending }} / {{ possible_plus_ones }}</td>
+            </tr>
             </tbody>
         </table>
         <div class="row">
@@ -41,25 +45,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="col-lg-6">
-                <h1>Meal choices</h1>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            {% for meal in meal_breakdown %}
-                            <th>{{ meal.meal }}</th>
-                            {% endfor %}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            {% for meal in meal_breakdown %}
-                            <td>{{ meal.count }}</td>
-                            {% endfor %}
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+
         </div>
         <div class="row">
             <div class="col-lg-6">
@@ -75,12 +61,7 @@
                 {% endwith %}
             </div>
         </div>
-        <div class="col-lg-6">
-                <h1>Attending Guests Without Meals</h1>
-                {% with guest_list=guests_without_meals %}
-                    {% include "guests/partials/guest_list.html" %}
-                {% endwith %}
-            </div>
+
         </div>
     </div>
 {% endblock %}

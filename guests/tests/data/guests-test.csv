@@ -1,7 +1,7 @@
 party,first_name,last_name,plus_one,is_child,category,rehearsal_dinner
 test1,testf,testl,False,False,test,False
 test1,testf2,tesl2,False,False,test,False
-test2,testpof,testpol,True,False,test,Fasle
+test2,testpof,testpol,True,False,test,False
 test3,testrdlf,testrdl,False,False,test,True
 test3,testrdlf2,testrdl2,False,False,test,True
 test4,testicf,testicf,False,False,test,False

@@ -136,6 +136,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join('bigday', 'static'),
 )
+LOGIN_REDIRECT_URL = '/rsvp/redirect/'
+LOGOUT_REDIRECT_URL = '/rsvp/'
 
 
 try:
