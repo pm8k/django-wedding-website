@@ -35,6 +35,8 @@ class Party(models.Model):
     comments = models.TextField(null=True, blank=True)
     plus_one = models.BooleanField(default=False)
     plus_one_is_attending = models.NullBooleanField(default=None)
+    email = models.TextField(null=True, blank=True)
+
 
     def __unicode__(self):
         return 'Party: {}'.format(self.name)

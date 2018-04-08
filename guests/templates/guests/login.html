@@ -1,12 +1,36 @@
 {% extends 'base.html' %}
-
+{% load staticfiles %}
+{% block page_head %}
+    <!-- Custom CSS -->
+    <link href="{% static 'bigday/css/creative.css' %}" rel="stylesheet">
+{% endblock %}
 {% block title %}Login{% endblock %}
-
 {% block page_content %}
-  <h2>HI!Login</h2>
-  <form method="post">
+
+<nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <a class="navbar-brand page-scroll" href="/">Megan & Matthew's Wedding</a>
+        </div>
+      </div>
+</nav>
+
+
+<section id="contact" class="bg-dark marmerbgblue">
+  <center>
+  <h2 class='herpderp'>Welcome!</h2>
+  <h5 class='loginbodytext'>Please log in with the credentials in your Invitation to RSVP</h5>
+  <br>
+  <form method="post" class='loginform'>
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Login</button>
+    <br>
+    <button type="submit" class='loginbutton'>Login</button>
   </form>
+
+<br><br>
+<h4 class='loginbodytext'> Lost your credentials? Please email us at <a href="mailto:marmerwedding@gmail.com">marmerwedding@gmail.com</a> and we will help get you setup!</h4>
+</center>
+<section>
 {% endblock %}

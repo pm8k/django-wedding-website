@@ -2,34 +2,60 @@
 {% load staticfiles %}
 {% block page_head %}
     <link href="{% static 'bigday/css/invitation.css' %}" rel="stylesheet" xmlns="http://www.w3.org/1999/html">
+    <link href="{% static 'bigday/css/creative.css' %}" rel="stylesheet" xmlns="http://www.w3.org/1999/html">
+    <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
 {% endblock %}
+
 {% block page_content %}
+
+
+<div class="invimage">
+  <center>
+  <img src="{% static 'invitation/images/invite-image.jpg' %}" class="invimage">
+</center>
+</div >
+
     <div class="container" id="invitation-body">
+
+
+
         <section class="col-md-6 text-center">
             <div id="invitation-details">
-            <h2>Ruth and Russell Wedding</h2>
+            <h2 class="title">Ruth and Russell Wedding</h2>
             <p class="lead">
                 June 9, 2018, at 4:00 pm<br>
                 Country Club Christian Church<br>
                 Kansas City, MO
             </p>
             </div>
+            {% if party.rehearsal_dinner%}
+            <div id="rehearsal-dinner-details">
+            <h2 class="title">Rehearsal Dinner</h2>
+            <p class="lead">
+                June 8, 2018, at 6:00 pm<br>
+                Cinder Block Brewery<br>
+                110 E 18th Ave, North<br>
+                North Kansas City, MO 64116
+            </p>
+            </div>
+            {% endif %}
         </section>
         <section class="col-md-6">
         <form data-toggle="validator" id="invitation-details" class="form-horizontal" method="post">
-            <h2 id="rsvp-header" class="text-center">RSVP</h2>
+            <h2 id="rsvp-header" class="text-center title">RSVP</h2>
+            <br>
             <div class="clearfix"></div>
             {% csrf_token %}
             {% for guest in party.ordered_guests.all %}
             <center>
                 <div class="form-group" data-is-child="{{ guest.is_child }}">
                     {% with 'attending-'|add:guest.unique_id as attending_label %}
-                    <label for="{{ attending_label }}" class="col-sm-3 control-label">{{ guest.name }}</label>
+                    <label for="{{ attending_label }}" class="control-label rsvpnames">{{ guest.name }}</label>
                     <br>
-                    <label class="radio-inline">
+                    <label class="radio-inline rsvpoptions">
                         <input class="attending-radio" type="radio" name="{{ attending_label }}" value="yes" {% if guest.is_attending %}checked="checked"{% endif %} required> will attend
                     </label>
-                    <label class="radio-inline">
+                    <label class="radio-inline rsvpoptions">
                         <input class="attending-radio" type="radio" name="{{ attending_label }}" value="no" {% if guest.is_attending == False %}checked="checked"{% endif %} required> will not attend
                     </label>
                     {% endwith %}
@@ -38,7 +64,7 @@
 
                   <div class="form-group">
                       {% with 'plus_one-'|add:guest.unique_id as plus_one_label %}
-                      <label for="{{ plus_one_label }}" class="col-sm-3 control-label">+1:</label>
+                      <label for="{{ plus_one_label }}" class="control-label rsvpnames">+1</label>
                       <br>
                       <label class="radio-inline">
                           <input class="attending-radio" type="radio" name="{{ plus_one_label }}" value="yes" {% if party.plus_one %}checked="checked"{% endif %} required> will attend
@@ -56,7 +82,7 @@
             </div>
             <div class="form-group">
                 <div class="text-center">
-                    <input type="submit" class="btn btn-primary" value="Submit Response" />
+                    <input type="submit" class="btn btn-primary btncolor" value="Submit Response" />
                 </div>
             </div>
         </form>

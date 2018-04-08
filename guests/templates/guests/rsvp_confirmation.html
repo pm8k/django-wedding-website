@@ -5,11 +5,11 @@
 {% endblock %}
 {% block page_content %}
     <div class="layer"></div>
-    <div class="container" id="main">
-        <h2>Hi {{ party.name }}! Thanks for your response!</h2>
+    <div class="container confirmbox" id="main">
+        <h2>Hi {{ party.name }}, thanks for your response!</h2>
         {% if party.any_guests_attending %}
             <p>
-                We're excited to celebrate our day with you in Kansas City!
+                We're excited to celebrate our day with you in Kansas City! See you in June!
             </p>
         {% else %}
             <p>

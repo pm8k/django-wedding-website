@@ -13,6 +13,7 @@ body {
     font-size: 16px;
 }
 
+
 body {
     font-family: Merriweather,'Helvetica Neue',Arial,sans-serif;
 }
@@ -726,6 +727,7 @@ width:100%;
 max-width:none;
 max-height:none;
 }
+
 .col-lg-4.col-sm-6 {
 width:33.33%;
 float:left;
@@ -858,7 +860,7 @@ fieldset[disabled] .btn-primary.active {
 
 .btn {
     border: 0;
-    border-radius: 300px;
+    border-radius: 0px;
     text-transform: uppercase;
     font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
     font-weight: 700;
@@ -898,4 +900,34 @@ body {
 #footer {
     /*background-color: #222;
     padding-bottom: 30px;*/
+}
+
+.loginform>p>input {
+    color: #000000;
+    margin: 0 auto;
+    display:block;
+}
+.loginform>p>label {
+  font-family: 'Raleway', serif;
+  font-weight: 400;
+  font-size: 16px;}
+
+
+
+.loginbutton {
+    color: #000000;
+    font-family: 'Raleway', serif;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.herpderp{
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 48px;
+}
+.loginbodytext {
+  font-family: 'Raleway', serif;
+  font-weight: 400;
+  font-size: 16px;
 }
