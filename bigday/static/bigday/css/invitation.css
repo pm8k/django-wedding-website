@@ -1,58 +1,55 @@
-.responsive-video {
-    position: relative;
-    padding-bottom: 56.25%;
-    padding-top: 60px; overflow: hidden;
-}
 
-
-.responsive-video iframe,
-.responsive-video object,
-.responsive-video embed {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-.video-container {
-    background-color: #000000;
-    padding: 2em;
-    margin-top: 2em;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-    opacity: 1.0;
-}
-
-#invitation-details, #rsvp-form {
-    margin-top: 2em;
+#invitation-details, #rsvp-form, #rehearsal-dinner-details {
+    margin-top: 1em;
     padding: 1em;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
+
     border: .2em solid grey;
+    opacity: 1.0 !important ;
+    font-family: 'Merriweather', serif;
+    font-weight: 400;
+
 }
 
-
-body {
-    background: url('../images/invite-background.jpg') no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+.title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 36px;
 }
+
 
 #invitation-body {
-    background-color: #fff;
+    background-color: rgba(255,255,255,0);
+    opacity: 1;
     padding-bottom: 2em;
-    margin-top: 1em;
-    margin-bottom: 2em;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
+    margin-top: -2em;
+    margin-bottom: 0em;
+
 }
+
+.rsvpnames{
+  font-family: 'Merriweather', serif;
+  font-weight: 400;
+  margin:auto !important;
+}
+
+.rsvpoptions{
+  font-family: 'Merriweather', serif;
+  font-weight: 400;
+}
+
 
 #footer {
     padding-bottom: 30px;
+}
+
+.invimage{
+height:auto;
+width:100%;
+max-width:none;
+max-height:none;
+margin: -10% 0 0 0px;
+}
+
+.btncolor{
+  background-color: #0B3243 !important;
 }

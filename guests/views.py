@@ -14,6 +14,9 @@ from guests.invitation import get_invitation_context, INVITATION_TEMPLATE, guess
 from guests.models import Guest, MEALS, Party
 from guests.save_the_date import get_save_the_date_context, send_save_the_date_email, SAVE_THE_DATE_TEMPLATE, \
     SAVE_THE_DATE_CONTEXT_MAP
+from django.contrib.auth.decorators import user_passes_test
+import logging
+
 
 
 class GuestListView(ListView):
@@ -29,9 +32,10 @@ def export_guests(request):
 
 
 @login_required
+@user_passes_test(lambda u: u.is_superuser)
 def dashboard(request):
     parties_with_pending_invites = Party.objects.filter(
-        is_invited=True, is_attending=None
+        is_attending=None
     ).order_by('category', 'name')
     parties_with_unopen_invites = parties_with_pending_invites.filter(invitation_opened=None)
     parties_with_open_unresponded_invites = parties_with_pending_invites.exclude(invitation_opened=None)
@@ -45,70 +49,116 @@ def dashboard(request):
     )
     meal_breakdown = attending_guests.exclude(meal=None).values('meal').annotate(count=Count('*'))
     category_breakdown = attending_guests.values('party__category').annotate(count=Count('*'))
+
+    print Party.objects.exclude(plus_one_is_attending=False).exclude(plus_one=False).count()
+    print Guest.objects.exclude(is_attending=False).count()
     return render(request, 'guests/dashboard.html', context={
-        'guests': Guest.objects.filter(is_attending=True).count(),
-        'possible_guests': Guest.objects.filter(party__is_invited=True).exclude(is_attending=False).count(),
-        'not_coming_guests': Guest.objects.filter(is_attending=False).count(),
+        'guests': Guest.objects.filter(is_attending=True).count()+Party.objects.filter(plus_one_is_attending=True).count(),
+        'possible_guests': Guest.objects.exclude(is_attending=False).count()+Party.objects.exclude(plus_one_is_attending=False).exclude(plus_one=False).count(),
+        'not_coming_guests': Guest.objects.filter(is_attending=False).count()+Party.objects.filter(plus_one_is_attending=False).count(),
         'pending_invites': parties_with_pending_invites.count(),
-        'pending_guests': Guest.objects.filter(party__is_invited=True, is_attending=None).count(),
-        'guests_without_meals': guests_without_meals,
+        'pending_guests': Guest.objects.filter(is_attending=None).count()+Party.objects.filter(is_attending=None).filter(plus_one=True).count(),
+        # 'guests_without_meals': guests_without_meals,
         'parties_with_unopen_invites': parties_with_unopen_invites,
         'parties_with_open_unresponded_invites': parties_with_open_unresponded_invites,
         'unopened_invite_count': parties_with_unopen_invites.count(),
-        'total_invites': Party.objects.filter(is_invited=True).count(),
-        'meal_breakdown': meal_breakdown,
+        'total_invites': Party.objects.count(),
+        # 'meal_breakdown': meal_breakdown,
         'category_breakdown': category_breakdown,
+        'plus_ones_attending': Party.objects.filter(plus_one_is_attending=True).count(),
+        'possible_plus_ones': Party.objects.filter(plus_one=True).exclude(plus_one_is_attending=False).count(),
     })
+# logger = logging.getLogger('views')
 
-
+@login_required
 def invitation(request, invite_id):
-    party = guess_party_by_invite_id_or_404(invite_id)
+    # logger.error('YYZ')
+    print 'INVITE TEST'
+    pbool, party = guess_party_by_invite_id_or_404(request, invite_id)
+    if not pbool:
+        return party
+    print party
+    print party.name, invite_id
+    if party.name != invite_id:
+        print('failed')
+        return HttpResponseRedirect('/invite/{invite_id}/'.format(invite_id=invite_id))
+    elif request.user.username != invite_id:
+        print('wrong user')
+        return HttpResponseRedirect('/invite/{invite_id}/'.format(invite_id=request.user.username))
     if party.invitation_opened is None:
         # update if this is the first time the invitation was opened
         party.invitation_opened = datetime.utcnow()
         party.save()
     if request.method == 'POST':
         for response in _parse_invite_params(request.POST):
+            print 'IN POST'
+            print response
             guest = Guest.objects.get(pk=response.guest_pk)
             assert guest.party == party
             guest.is_attending = response.is_attending
-            guest.meal = response.meal
+            # guest.meal = response.meal
+            print response.plus_one
             guest.save()
         if request.POST.get('comments'):
             comments = request.POST.get('comments')
             party.comments = comments if not party.comments else '{}; {}'.format(party.comments, comments)
         party.is_attending = party.any_guests_attending
+        party.plus_one_is_attending = response.plus_one
         party.save()
         return HttpResponseRedirect(reverse('rsvp-confirm', args=[invite_id]))
+    print party.plus_one
     return render(request, template_name='guests/invitation.html', context={
         'party': party,
         'meals': MEALS,
     })
 
 
-InviteResponse = namedtuple('InviteResponse', ['guest_pk', 'is_attending', 'meal'])
+InviteResponse = namedtuple('InviteResponse', ['guest_pk', 'is_attending', 'plus_one'])
 
 
 def _parse_invite_params(params):
     responses = {}
+    print params
     for param, value in params.items():
         if param.startswith('attending'):
             pk = int(param.split('-')[-1])
             response = responses.get(pk, {})
             response['attending'] = True if value == 'yes' else False
             responses[pk] = response
-        elif param.startswith('meal'):
+        elif param.startswith('plus_one'):
+            print param
             pk = int(param.split('-')[-1])
             response = responses.get(pk, {})
-            response['meal'] = value
+            response['plus_one'] = True if value == 'yes' else False
             responses[pk] = response
-
+    print responses
     for pk, response in responses.items():
-        yield InviteResponse(pk, response['attending'], response.get('meal', None))
+        yield InviteResponse(pk, response['attending'], response.get('plus_one', None))
+
+@login_required
+def rsvp_redirect(request):
+    print reverse('invitation',
+            args=[request.user.username])
+    return HttpResponseRedirect(
+               reverse('invitation',
+                       args=[request.user.username]))
 
 
+@login_required
 def rsvp_confirm(request, invite_id=None):
-    party = guess_party_by_invite_id_or_404(invite_id)
+    print 'TEST'
+    pbool, party = guess_party_by_invite_id_or_404(request, invite_id)
+    if not pbool:
+        return party
+    if party.name != invite_id:
+        print('failed')
+        return HttpResponseRedirect('/rsvp/confirm/{invite_id}/'.format(invite_id=invite_id))
+    elif request.user.username != invite_id:
+        print('wrong user')
+        return HttpResponseRedirect('/rsvp/confirm/{invite_id}/'.format(invite_id=request.user.username))
+
+
+
     return render(request, template_name='guests/rsvp_confirmation.html', context={
         'party': party,
     })
