@@ -1,8 +1,8 @@
 from django.conf.urls import url
 from django.contrib.auth import views as auth_views
 
-from guests.views import GuestListView, test_email, save_the_date_preview, save_the_date_random, export_guests, \
-    invitation, invitation_email_preview, invitation_email_test, rsvp_confirm, dashboard, rsvp_redirect
+from guests.views import GuestListView, export_guests, \
+    invitation, rsvp_confirm, dashboard, rsvp_redirect
 
 urlpatterns = [
     # url(r'^guests/$', GuestListView.as_view(), name='guest-list'),
