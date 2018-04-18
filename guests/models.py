@@ -7,15 +7,23 @@ from django.dispatch import receiver
 
 # these will determine the default formality of correspondence
 ALLOWED_TYPES = [
-    ('formal', 'formal'),
-    ('fun', 'fun'),
-    ('dimagi', 'dimagi'),
+    ('Wedding Party', 'Wedding Party'),
+    ('Matt - Family', 'Matt - Family'),
+    ('Matt - Friends', 'Matt - Friends'),
+    ('Megan - Family', 'Megan - Family'),
+    ('Megan - Friends', 'Megan - Friends'),
+    ('Mutual Friends', 'Mutual Friends'),
 ]
 
 
 def _random_uuid():
     return uuid.uuid4().hex
 
+MEALS = [
+    ('chicken', 'chicken'),
+    ('pork', 'pork'),
+    ('neither', 'neither'),
+]
 
 class Party(models.Model):
     """
@@ -35,6 +43,9 @@ class Party(models.Model):
     comments = models.TextField(null=True, blank=True)
     plus_one = models.BooleanField(default=False)
     plus_one_is_attending = models.NullBooleanField(default=None)
+    plus_one_meal = models.CharField(max_length=20, choices=MEALS, null=True, blank=True)
+    plus_one_diet_comments = models.TextField(null=True, blank=True)
+
     email = models.TextField(null=True, blank=True)
 
 
@@ -58,12 +69,6 @@ class Party(models.Model):
         return filter(None, self.guest_set.values_list('email', flat=True))
 
 
-MEALS = [
-    ('beef', 'cow'),
-    ('fish', 'fish'),
-    ('hen', 'hen'),
-    ('vegetarian', 'vegetable'),
-]
 
 
 class Guest(models.Model):
@@ -76,6 +81,7 @@ class Guest(models.Model):
     # email = models.TextField(null=True, blank=True)
     is_attending = models.NullBooleanField(default=None)
     meal = models.CharField(max_length=20, choices=MEALS, null=True, blank=True)
+    diet_comments = models.TextField(null=True, blank=True)
     is_child = models.BooleanField(default=False)
 
     @property

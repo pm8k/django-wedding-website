@@ -78,10 +78,10 @@ def invitation(request, invite_id):
     print party.name, invite_id
     if party.name != invite_id:
         print('failed')
-        return HttpResponseRedirect('/invite/{invite_id}/'.format(invite_id=invite_id))
+        return HttpResponseRedirect('/rsvp/invite/{invite_id}/'.format(invite_id=invite_id))
     elif request.user.username != invite_id:
         print('wrong user')
-        return HttpResponseRedirect('/invite/{invite_id}/'.format(invite_id=request.user.username))
+        return HttpResponseRedirect('/rsvp/invite/{invite_id}/'.format(invite_id=request.user.username))
     if party.invitation_opened is None:
         # update if this is the first time the invitation was opened
         party.invitation_opened = datetime.utcnow()
@@ -93,7 +93,8 @@ def invitation(request, invite_id):
             guest = Guest.objects.get(pk=response.guest_pk)
             assert guest.party == party
             guest.is_attending = response.is_attending
-            # guest.meal = response.meal
+            guest.meal = response.meal
+            guest.diet_comments = response.diet
             print response.plus_one
             guest.save()
         if request.POST.get('comments'):
@@ -101,6 +102,9 @@ def invitation(request, invite_id):
             party.comments = comments if not party.comments else '{}; {}'.format(party.comments, comments)
         party.is_attending = party.any_guests_attending
         party.plus_one_is_attending = response.plus_one
+        party.plus_one_diet_comments= response.plus_one_diet
+        party.plus_one_meal = response.plus_one_meal
+        print response.plus_one_meal
         party.save()
         return HttpResponseRedirect(reverse('rsvp-confirm', args=[invite_id]))
     print party.plus_one
@@ -110,7 +114,8 @@ def invitation(request, invite_id):
     })
 
 
-InviteResponse = namedtuple('InviteResponse', ['guest_pk', 'is_attending', 'plus_one'])
+InviteResponse = namedtuple('InviteResponse', ['guest_pk', 'is_attending','meal', 'diet', 'plus_one',
+                                                'plus_one_meal','plus_one_diet'])
 
 
 def _parse_invite_params(params):
@@ -122,15 +127,40 @@ def _parse_invite_params(params):
             response = responses.get(pk, {})
             response['attending'] = True if value == 'yes' else False
             responses[pk] = response
+        elif param.startswith('meal'):
+            print param
+            pk = int(param.split('-')[-1])
+            response = responses.get(pk, {})
+            response['meal'] = value
+            responses[pk] = response
+        elif param.startswith('plus_one_meal'):
+            print param
+            pk = int(param.split('-')[-1])
+            response = responses.get(pk, {})
+            response['plus_one_meal'] = value
+            responses[pk] = response
+        elif param.startswith('plus_one_diet'):
+            print param
+            pk = int(param.split('-')[-1])
+            response = responses.get(pk, {})
+            response['plus_one_diet'] = value
+            responses[pk] = response
         elif param.startswith('plus_one'):
             print param
             pk = int(param.split('-')[-1])
             response = responses.get(pk, {})
             response['plus_one'] = True if value == 'yes' else False
             responses[pk] = response
+        elif param.startswith('diet'):
+            print param
+            pk = int(param.split('-')[-1])
+            response = responses.get(pk, {})
+            response['diet'] = value
+            responses[pk] = response
     print responses
     for pk, response in responses.items():
-        yield InviteResponse(pk, response['attending'], response.get('plus_one', None))
+        yield InviteResponse(pk, response['attending'],response.get('meal', None),response.get('diet', None),
+         response.get('plus_one', None),response.get('plus_one_meal', None),response.get('plus_one_diet', None))
 
 @login_required
 def rsvp_redirect(request):

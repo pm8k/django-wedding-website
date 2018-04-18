@@ -22,4 +22,4 @@ def guess_party_by_invite_id_or_404(request,invite_id):
         #     #return Party.objects.get(id=int(invite_id))
         # else:
         #     raise Http404()
-        return False, HttpResponseRedirect('/invite/{invite_id}/'.format(invite_id=request.user.username))
+        return False, HttpResponseRedirect('/rsvp/invite/{invite_id}/'.format(invite_id=request.user.username))

@@ -41,6 +41,7 @@
             {% endif %}
         </section>
         <section class="col-md-6">
+
         <form data-toggle="validator" id="invitation-details" class="form-horizontal" method="post">
             <h2 id="rsvp-header" class="text-center title">RSVP</h2>
             <br>
@@ -60,6 +61,28 @@
                     </label>
                     {% endwith %}
                 </div>
+                <div class="form-group">
+                    {% with meal_label='meal-'|add:guest.unique_id diet_label='diet-'|add:guest.unique_id %}
+                    <label for="{{ meal_label }}" class="control-label rsvpnames">... and will eat</label>
+                    <br>
+                    {% for meal_id, meal_name in meals %}
+                    <label class="radio-inline rsvpoptions">
+                        <input type="radio" name="{{ meal_label }}" id="{{ meal_label }}-yes" value="{{ meal_id }}" {% if guest.meal == meal_id %}checked="checked"{% endif %} {% if guest.is_attending == False %}disabled{% endif %} required> {{ meal_name }}
+                    </label>
+
+                    {% endfor %}
+                    <br><br>
+                    <center>
+                    <label class="control-label rsvpnames">Any dietary restrictions?</label>
+
+
+                    <div class="form-group" style="width:70%">
+                        <input type="text" id="testtext" name="{{ diet_label }}" class="form-control" placeholder="What can't you have?" >
+                    </div>
+                  </center>
+
+                    {% endwith %}
+                </div>
                 {% if party.plus_one%}
 
                   <div class="form-group">
@@ -67,55 +90,94 @@
                       <label for="{{ plus_one_label }}" class="control-label rsvpnames">+1</label>
                       <br>
                       <label class="radio-inline">
-                          <input class="attending-radio" type="radio" name="{{ plus_one_label }}" value="yes" {% if party.plus_one %}checked="checked"{% endif %} required> will attend
+                          <input class="attending-radio" type="radio" name="{{ plus_one_label }}" value="yes" {% if party.plus_one_is_attending %}checked="checked"{% endif %} required> will attend
                       </label>
                       <label class="radio-inline">
-                          <input class="attending-radio" type="radio" name="{{ plus_one_label }}" value="no" {% if party.plus_one == False %}checked="checked"{% endif %} required> will not attend
+                          <input class="attending-radio" type="radio" name="{{ plus_one_label }}" value="no" {% if party.plus_one_is_attending == False %}checked="checked"{% endif %} required> will not attend
                       </label>
+                      {% endwith %}
+                  </div>
+                  <div class="form-group">
+                      {% with plus_one_meal_label='plus_one_meal-'|add:guest.unique_id plus_one_diet_label='plus_one_diet-'|add:guest.unique_id %}
+                      <label for="{{ plus_one_meal_label }}" class="control-label rsvpnames">... and will eat</label>
+                      <br>
+                      {% for meal_id, meal_name in meals %}
+                      <label class="radio-inline rsvpoptions">
+                          <input type="radio" name="{{ plus_one_meal_label }}" id="{{ plus_one_meal_label }}-yes" value="{{ meal_id }}" {% if guest.meal == meal_id %}checked="checked"{% endif %} {% if guest.is_attending == False %}disabled{% endif %} required> {{ meal_name }}
+                      </label>
+                      {% endfor %}
+                      <br><br>
+                      <center>
+                      <label class="control-label rsvpnames">Any dietary restrictions?</label>
+
+
+                      <div class="form-group" style="width:70%">
+                          <input type="text" id="testtext" name="{{ plus_one_diet_label }}" class="form-control" placeholder="What can't you have?" >
+                      </div>
+                    </center>
                       {% endwith %}
                   </div>
                 {% endif %}
             {% endfor %}
           </center>
-            <div class="form-group col-sm-12">
+
+
+        <h2 class="title text-center">Comments</h2>
+        <div class="form-group">
                 <input type="text" name="comments" class="form-control" placeholder="Questions/comments/well wishes" >
             </div>
-            <div class="form-group">
-                <div class="text-center">
-                    <input type="submit" class="btn btn-primary btncolor" value="Submit Response" />
-                </div>
+        <div class="form-group">
+            <div class="text-center">
+                <input type="submit" class="btn btn-primary btncolor" value="Submit Response" />
             </div>
-        </form>
+        </div>
+      </form>
         </section>
+    </div>
+    <div id="footer" class="text-center text-muted invisible marmerbodytext" style="color:#FFFFFF;max-width:None;text-align:center">
     </div>
 {% endblock %}
 {% block page_js %}
     <script src="{% static 'validator.js' %}"></script>
-    <script>
+    <script type="text/javascript">
     $(function () {
+        console.log('here')
         // enable/disable meal choices based on attendance
         $("input.attending-radio").change(function (e) {
             var target = $(e.target);
-            if (target.closest('.form-group').data('is-child') === "True") {
-                // don't attempt to update meals for children, who don't have them.
-                return;
-            }
+            // if (target.closest('.form-group').data('is-child') === "True") {
+            //     // don't attempt to update meals for children, who don't have them.
+            //     return;
+            // }
+
             var value = target.attr('value');
-            // var mealButtonContainer = target.closest('.form-group').next('.form-group');
-            // var mealButtons = mealButtonContainer.find('[type=radio]');
-            // if (value === 'yes') {
-            //     mealButtonContainer.removeClass('text-muted');
-            //     mealButtons.each(function (index, button) {
-            //         button.disabled = false;
-            //         button.required = true;
-            //     });
-            // } else if (value === "no") {
-            //     mealButtonContainer.addClass('text-muted');
-            //     mealButtons.each(function (index, button) {
-            //         button.checked = false;
-            //         button.disabled = true;
-            //         button.required = false;
-            //     });
+
+            var mealButtonContainer = target.closest('.form-group').next('.form-group');
+            var mealButtons = mealButtonContainer.find('[type=radio]');
+            var mealDiet = mealButtonContainer.find('[type=text]');
+            if (value === 'yes') {
+                mealButtonContainer.removeClass('text-muted');
+                mealButtons.each(function (index, button) {
+                    button.disabled = false;
+                    button.required = true;
+                });
+                mealDiet.each(function (index, text) {
+                    text.disabled = false;
+                });
+
+            } else if (value === "no") {
+                mealButtonContainer.addClass('text-muted');
+                mealDiet.addClass('text-muted');
+                mealDiet.disabled = true;
+                mealButtons.each(function (index, button) {
+                    button.checked = false;
+                    button.disabled = true;
+                    button.required = false;
+                });
+                mealDiet.each(function (index, text) {
+                    text.disabled = true;
+                    text.required = false;
+                });
             }
             // reload validation
             $(document.forms[0]).validator('destroy');
