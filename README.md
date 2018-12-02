@@ -1,12 +1,14 @@
 # A Django Wedding Website and Invitation + Guest Management System
 
+
+## A note from pm8k:
+
+I used a fork of czue's repo as a base for what I accomplished. A lot of the ReadMe below is directly taken from his Readme, with alterations where I customized the website to my requirements. Please reference his as well if there is something unclear. I've removed bits of the readme that don't apply to my version, and will **bold** additional comments from me.
+
 Live site examples:
 
-- [Standard Wedding Website](http://coryandro.com/)
-- [Random Save The Date Email](http://coryandro.com/save-the-date/) (refresh for more examples)
-- [Sample Personal Invitation Page](http://coryandro.com/invite/b2ad24ec5dbb4694a36ef4ab616264e0/)
-
-There is also [a longer writeup on this project here](https://www.placecard.me/django-wedding-website/).
+- [Standard Wedding Website](http://marmerwedding.com/)
+- **czue's implementation included supervisord deployment details. I however did not need these, as I leveraged pythonanywhere.com to host my site.**
 
 ## What's included?
 
@@ -14,7 +16,6 @@ This includes everything we did for our own wedding:
 
 - A responsive, single-page traditional wedding website
 - A complete guest management application
-- Email framework for sending save the dates
 - Email framework for invitations and built in RSVP system
 - Guest dashboard
 
@@ -33,7 +34,7 @@ It is completely customizable to your needs and the content is laid out in stand
 - Configurable content sections for every aspect of your site that you want
 - A set of different styles you can use for different sections
 
-![Hero Section of Wedding Website](https://raw.githubusercontent.com/czue/django-wedding-website/master/screenshots/hero-page.png)
+![Hero Section of Wedding Website](https://raw.githubusercontent.com/pm8k/django-wedding-website/master/screenshots/hero-page.png)
 
 ### Guest management
 
@@ -45,6 +46,7 @@ It includes two data models - the `Party` and the `Guest`.
 The `Party` model allows you to group your guests together for things like sending a single invitation to a couple.
 You can also add parties that you're not sure you're going to invite using the `is_invited` field, which works great for sending tiered invitations.
 There's also a field to track whether the party is invited to the rehearsal dinner.
+**I also added an additional field if they are bringing a plus one. Part of the party configuration contains a boolean flag if that party has a plus one invite available**
 
 #### Guest model
 
@@ -62,22 +64,17 @@ See the `import_guests` management command for more details and `bigday/guests/t
 
 ### Save the Dates
 
-The app comes with a built-in cross-client and mobile-friendly email template for save the dates (see `save_the_date.html`).
-
-You can create multiple save the dates and send them out either randomly or by `Party` type (useful if you want to send formal
-invitations to some people and more playful ones to others).
-
-See `save_the_date.py` and `SAVE_THE_DATE_CONTEXT_MAP` for customizing your save the dates.
+** I removed the save the date functionality from our site, as we wanted to send physical save the dates. **
 
 ### Invitations and RSVPs
 
 The app also comes with a built-in invitation system.
 The template is similar to the save-the-date template, however in addition to the standard invitation content it includes:
 
-- A built in tracking pixel to know whether someone has opened the email or not
-- Unique invitation URLs for each party with pre-populated guest names ([example](http://coryandro.com/invite/b2ad24ec5dbb4694a36ef4ab616264e0/))
-- Online RSVP system with meal selection and validation
 
+- Online RSVP system with meal selection and validation
+- **Unique login for each party, with names prepopulated for all members of the party, and drop downs for each guest in the party**
+- **The script guests/create_users.py is what loads in user login information. Test examples can also be found in bigday/tests/data**
 ### Guest dashboard
 
 After your invitations go out you can use the guest dashboard to see how many people have RSVP'd, everyone who still
@@ -91,7 +88,7 @@ Just access `/dashboard/` from an account with admin access. Your other guests w
 ### Other details
 
 You can easily hook up Google analytics by editing the tracking ID in `google-analytics.html`.
-
+**I haven't tested this piece**
 
 ## Installation
 
