@@ -83,7 +83,7 @@ It's a great way of tracking your big picture numbers in terms of how many guest
 
 Just access `/dashboard/` from an account with admin access. Your other guests won't be able to see it.
 
-![Wedding Dashboard](https://raw.githubusercontent.com/czue/django-wedding-website/master/screenshots/wedding-dashboard.png)
+![Wedding Dashboard](https://raw.githubusercontent.com/pm8k/django-wedding-website/master/screenshots/wedding-dashboard.png)
 
 ### Other details
 
@@ -104,13 +104,6 @@ python manage.py runserver
 
 ## Customization
 
-I recommend forking this project and just manually modifying it by hand to replace everything with what you want.
-Searching for the text on a page in the repository is a great way to find where something lives.
+**As czue stated on his repo, all of this is customized for my needs, so feel free to customize it yourself. Feel free to raise issues or reach out to me if you have any questions/comments. Thanks!
 
-If you want to use this project for your wedding but need help getting started just [get in touch](http://www.coryzue.com/contact/) or make an issue
-for anything you encounter and I'm happy to help.
-
-I haven't built out more complete customization docs yet because I wasn't sure anyone would be interested in this,
-but am happy to do that if people are!
-
--Cory
+-Matt**
