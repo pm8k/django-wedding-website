@@ -64,7 +64,7 @@ See the `import_guests` management command for more details and `bigday/guests/t
 
 ### Save the Dates
 
-** I removed the save the date functionality from our site, as we wanted to send physical save the dates. **
+**I removed the save the date functionality from our site, as we wanted to send physical save the dates.**
 
 ### Invitations and RSVPs
 
@@ -104,6 +104,6 @@ python manage.py runserver
 
 ## Customization
 
-**As czue stated on his repo, all of this is customized for my needs, so feel free to customize it yourself. Feel free to raise issues or reach out to me if you have any questions/comments. Thanks!
+**As czue stated on his repo, all of this is customized for my needs, so feel free to customize it yourself. Feel free to raise issues or reach out to me if you have any questions/comments. Thanks!**
 
--Matt**
+**-Matt**
